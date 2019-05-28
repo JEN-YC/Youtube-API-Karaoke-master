@@ -15,7 +15,7 @@
             app:layout_constraintEnd_toStartOf="@+id/search"
             app:layout_constraintHorizontal_chainStyle="spread_inside" app:layout_constraintHorizontal_weight="0.15"
             app:layout_constraintVertical_chainStyle="spread_inside" app:layout_constraintVertical_weight="0.2"
-            app:srcCompat="@drawable/snowman" android:backgroundTintMode="src_over"/>
+            app:srcCompat="@drawable/coretronic" android:backgroundTintMode="src_over"/>
     <EditText
             android:layout_width="0dp"
             android:layout_height="0dp"

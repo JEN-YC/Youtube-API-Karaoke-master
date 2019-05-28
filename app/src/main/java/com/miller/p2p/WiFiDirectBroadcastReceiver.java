@@ -27,7 +27,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             int state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1);
 
             if(state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) {
-                Toast.makeText(context, "Wifi is On", Toast.LENGTH_LONG);
+                MainActivity.makeTextAndShow(context, "Wifi is On", Toast.LENGTH_LONG);
             }
         }
         else if(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)){
@@ -44,10 +44,9 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
                 mActivity.status.setText("連線成功");
             }
             else{
-                Toast.makeText(mActivity, "與遙控器中斷連線", Toast.LENGTH_SHORT).show();
+                MainActivity.makeTextAndShow(mActivity, "與遙控器中斷連線", Toast.LENGTH_SHORT);
                 try {
                     if(MainActivity.clientClass != null && MainActivity.clientClass.socket.isConnected()) {
-                        Log.e("close", "yooo");
                         MainActivity.clientClass.socket.close();
                     }
                 } catch (IOException e) {

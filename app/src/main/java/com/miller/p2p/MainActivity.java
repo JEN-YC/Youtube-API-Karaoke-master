@@ -63,6 +63,7 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
     YoutubeAdapter searchAdapter, historyAdapter;
     YouTubePlayer player;
     YoutubeAPI youtubeAPI;
+    public static Toast toast;
     List<WifiP2pDevice> peers = new ArrayList<>();
     String[] device_names;
     Boolean isFullScreen = false;
@@ -79,6 +80,17 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
         initialWork();
         processViews();
         processControllers();
+    }
+
+    public static void makeTextAndShow(final Context context, final String text, final int duration) {
+        if (toast == null) {
+            //如果還沒有用過makeText方法，才使用
+            toast = android.widget.Toast.makeText(context, text, duration);
+        } else {
+            toast.setText(text);
+            toast.setDuration(duration);
+        }
+        toast.show();
     }
 
     @Override
@@ -268,8 +280,8 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
 //                                    audioManager.adjustVolume(AudioManager.ADJUST_MUTE, 0);
 //                                    break;
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        } catch (Exception e) {
+                            makeTextAndShow(getApplicationContext(), "請重啟app", Toast.LENGTH_LONG);
                         }
                 }
                 return true;
@@ -357,13 +369,13 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
             final InetAddress groupOwnerAddress = info.groupOwnerAddress;
             Log.e("owner", String.valueOf(info.isGroupOwner));
             if (info.groupFormed && info.isGroupOwner) {
-                Toast.makeText(MainActivity.this, "已連接", Toast.LENGTH_SHORT).show();
+                makeTextAndShow(MainActivity.this, "已與遙控器連線", Toast.LENGTH_SHORT);
                 status.setText(R.string.connect_user);
                 serverClass = new ServerClass();
                 serverClass.start();
             }
             else if (info.groupFormed){
-                Toast.makeText(MainActivity.this, "已連接", Toast.LENGTH_SHORT).show();
+                makeTextAndShow(MainActivity.this, "已與遙控器連線", Toast.LENGTH_SHORT);
                 status.setText(R.string.connect_user);
                 clientClass = new ClientClass(groupOwnerAddress);
                 clientClass.start();
@@ -388,7 +400,6 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
             }
 
             if(peers.size() == 0){
-                Toast.makeText(getApplicationContext(), "沒有搜尋到任何可連線裝置",Toast.LENGTH_SHORT).show();
                 mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
                     @Override
                     public void onSuccess() {
@@ -517,7 +528,6 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
 
             @Override
             public void onError(YouTubePlayer.ErrorReason errorReason) {
-                Toast.makeText(MainActivity.this, String.valueOf(errorReason), Toast.LENGTH_LONG);
             }
         });
     }
@@ -541,7 +551,7 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
     }
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-        Toast.makeText(this, "Fail on Initialization!", Toast.LENGTH_LONG).show();
+        makeTextAndShow(this, "Youtube 撥放器載入失敗，請重啟app", Toast.LENGTH_LONG);
 
     }
 }
