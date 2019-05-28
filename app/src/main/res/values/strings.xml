@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">投影機卡拉OK</string>
+    <string name="popular_list">熱門歌單</string>
+    <string name="history">點歌紀錄</string>
+    <string name="disconnect">尚未連線手機</string>
+    <string name="connect">已連接手機</string>
+    <string name="search">Search</string>
+    <string name="logo">logo</string>
+    <string name="what_you_want">想唱什麼歌?</string>
+    <string name="search_btn">搜尋</string>
+    <string name="search_result">搜尋結果</string>
+    <string name="connect_user">已連接手機搖控器</string>
+</resources>
